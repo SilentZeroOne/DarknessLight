@@ -31,15 +31,21 @@ public class ObjectsInfo : MonoBehaviour
         get { return drugDict; }
     }
 
+    private Dictionary<int, EquipmentInfo> equipDict;
+    public Dictionary<int, EquipmentInfo> EquipDict
+    {
+        get { return equipDict; }
+    }
     private void Awake()
     {
         instance = this;
         objDict = new Dictionary<int, ObjectInfo>();
         drugDict = new Dictionary<int, DrugInfo>();
+        equipDict = new Dictionary<int, EquipmentInfo>();
         ReadInfo();
-        //foreach (var item in drugDict.Values)
+        //foreach (var item in EquipDict.Values)
         //{
-        //    print(item.hp);
+        //    print(item.id);
         //}
     }
     void ReadInfo()
@@ -72,13 +78,15 @@ public class ObjectsInfo : MonoBehaviour
             info.name = name;
             info.icon_name = icon_name;
             info.type = type;
-            switch(type)
+            int price_sell;
+            int price_buy;
+            switch (type)
             {
                 case ObjectType.Drug:
                     int hp = int.Parse(proArray[4]);
                     int mp = int.Parse(proArray[5]);
-                    int price_sell = int.Parse(proArray[6]);
-                    int price_buy = int.Parse(proArray[7]);
+                    price_sell = int.Parse(proArray[6]);
+                    price_buy = int.Parse(proArray[7]);
                     DrugInfo Druginfo = new DrugInfo(info);
                     Druginfo.hp = hp;
                     Druginfo.mp = mp;
@@ -88,6 +96,61 @@ public class ObjectsInfo : MonoBehaviour
                     Druginfo.count = 1;
                     drugDict.Add(Druginfo.id, Druginfo);
                     break;
+                case ObjectType.Equipment:
+                    int atk = int.Parse(proArray[4]);
+                    int def = int.Parse(proArray[5]);
+                    int speed = int.Parse(proArray[6]);
+                    string str_equipType = proArray[7];
+                    EquipType equipType = EquipType.Accessory;
+                    switch (str_equipType)
+                    {
+                        case "Armor":
+                            equipType = EquipType.Armor;
+                            break;
+                        case "Shoe":
+                            equipType = EquipType.Shoe;
+                            break;
+                        case "Helmet":
+                            equipType = EquipType.Helmet;
+                            break;
+                        case "Accessory":
+                            equipType = EquipType.Accessory;
+                            break;
+                        case "Shield":
+                            equipType = EquipType.Shield;
+                            break;
+                        case "MainWeapon":
+                            equipType = EquipType.MainWeapon;
+                            break;
+                    }
+                    string str_job = proArray[8];
+                    Job job = Job.Common;
+                    switch (str_job)
+                    {
+                        case "Swordman":
+                            job = Job.Swordman;
+                            break;
+                        case "Magician":
+                            job = Job.Magician;
+                            break;
+                        case "Common":
+                            job = Job.Common;
+                            break;
+                    }
+                    price_sell = int.Parse(proArray[9]);
+                    price_buy = int.Parse(proArray[10]);
+                    EquipmentInfo equipmentInfo = new EquipmentInfo(info);
+                    equipmentInfo.atk = atk;
+                    equipmentInfo.def = def;
+                    equipmentInfo.speed = speed;
+                    equipmentInfo.equipType = equipType;
+                    equipmentInfo.job = job;
+                    equipmentInfo.price_sell = price_sell;
+                    equipmentInfo.price_buy = price_buy;
+                    equipmentInfo.count = 1;
+                    equipmentInfo.spritePath = "Icon/" + equipmentInfo.icon_name;
+                    equipDict.Add(equipmentInfo.id, equipmentInfo);
+                    break;
             }
             
         }
@@ -95,14 +158,17 @@ public class ObjectsInfo : MonoBehaviour
 
     public ObjectInfo GetObjectInfo(int id)
     {
-        ObjectInfo info = null;
-        objDict.TryGetValue(id,out info);
+        objDict.TryGetValue(id, out ObjectInfo info);
         return info;
     }
     public DrugInfo GetDrugInfo(int id)
     {
-        DrugInfo info = null;
-        drugDict.TryGetValue(id, out info);
+        drugDict.TryGetValue(id, out DrugInfo info);
+        return info;
+    }
+    public EquipmentInfo GetEquipmentInfo(int id)
+    {
+        equipDict.TryGetValue(id, out EquipmentInfo info);
         return info;
     }
 }

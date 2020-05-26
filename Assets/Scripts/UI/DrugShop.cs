@@ -72,16 +72,16 @@ public class DrugShop : PanelBase
             {
                 if(item.buyNum != 0)
                 {
-                    if (!Inventory.instance.objects.Contains(item))
-                    {
-                        Inventory.instance.objects.Add(item);
-                        Inventory.instance.objects[Inventory.instance.objects.IndexOf(item)].count += (item.buyNum-1);
-                    }
-                    else
-                    {
-                        Inventory.instance.objects[Inventory.instance.objects.IndexOf(item)].count += item.buyNum;
-                    }
-
+                    //if (!Inventory.instance.objects.Contains(item))
+                    //{
+                    //    Inventory.instance.objects.Add(item);
+                    //    Inventory.instance.objects[Inventory.instance.objects.IndexOf(item)].count += (item.buyNum-1);
+                    //}
+                    //else
+                    //{
+                    //    Inventory.instance.objects[Inventory.instance.objects.IndexOf(item)].count += item.buyNum;
+                    //}
+                    Inventory.instance.AddObjectData(item, item.buyNum);
                    
                 }    
             }
@@ -94,6 +94,6 @@ public class DrugShop : PanelBase
         }
         totalPrice.text = "0";
         onClose?.Invoke();
-        Inventory.instance.LoadData();
+       // Inventory.instance.LoadData();
     }
 }

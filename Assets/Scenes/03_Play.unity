@@ -6292,8 +6292,9 @@ GameObject:
   - component: {fileID: 1186393535}
   - component: {fileID: 1186393537}
   - component: {fileID: 1186393536}
+  - component: {fileID: 1186393538}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: MainWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6354,6 +6355,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186393534}
   m_CullTransparentMesh: 0
+--- !u!114 &1186393538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186393534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d5d10621e07b794d91f92b17967722a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipPrefab: {fileID: 3160511658817982257, guid: 01add17fab6b3bf4da279a490b150716,
+    type: 3}
 --- !u!1 &1199407392
 GameObject:
   m_ObjectHideFlags: 0
@@ -8105,8 +8120,9 @@ GameObject:
   - component: {fileID: 1529571285}
   - component: {fileID: 1529571287}
   - component: {fileID: 1529571286}
+  - component: {fileID: 1529571288}
   m_Layer: 5
-  m_Name: Image (4)
+  m_Name: Shoe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8167,6 +8183,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529571284}
   m_CullTransparentMesh: 0
+--- !u!114 &1529571288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529571284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f6d52e40fa1c24e83f2acc731ee994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipPrefab: {fileID: 3160511658817982257, guid: 01add17fab6b3bf4da279a490b150716,
+    type: 3}
 --- !u!1 &1548525995
 GameObject:
   m_ObjectHideFlags: 0
@@ -8755,8 +8785,9 @@ GameObject:
   - component: {fileID: 1740825897}
   - component: {fileID: 1740825899}
   - component: {fileID: 1740825898}
+  - component: {fileID: 1740825900}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8817,6 +8848,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740825896}
   m_CullTransparentMesh: 0
+--- !u!114 &1740825900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740825896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9376d9d93843f62428795adefc111d15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipPrefab: {fileID: 3160511658817982257, guid: 01add17fab6b3bf4da279a490b150716,
+    type: 3}
 --- !u!1 &1761247771
 GameObject:
   m_ObjectHideFlags: 0
@@ -8828,8 +8873,9 @@ GameObject:
   - component: {fileID: 1761247772}
   - component: {fileID: 1761247774}
   - component: {fileID: 1761247773}
+  - component: {fileID: 1761247775}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Headgear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8890,6 +8936,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761247771}
   m_CullTransparentMesh: 0
+--- !u!114 &1761247775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761247771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c1d22c63fe802d4fbf97ef1516d53c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipPrefab: {fileID: 3160511658817982257, guid: 01add17fab6b3bf4da279a490b150716,
+    type: 3}
 --- !u!1001 &1780718138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9755,6 +9815,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1b854c55568f84abfed3bb6b23247b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headgearGrid: {fileID: 1761247775}
+  weaponGrid: {fileID: 1186393538}
+  accessoryGrid: {fileID: 2040047355}
+  shieldGrid: {fileID: 1740825900}
+  armorGrid: {fileID: 1974405799}
+  shoeGrid: {fileID: 1529571288}
 --- !u!114 &1894574597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10552,8 +10618,9 @@ GameObject:
   - component: {fileID: 1974405796}
   - component: {fileID: 1974405798}
   - component: {fileID: 1974405797}
+  - component: {fileID: 1974405799}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10614,6 +10681,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1974405795}
   m_CullTransparentMesh: 0
+--- !u!114 &1974405799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974405795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9fd67fc70d6d948b5bf2f75a319885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipPrefab: {fileID: 3160511658817982257, guid: 01add17fab6b3bf4da279a490b150716,
+    type: 3}
 --- !u!1 &1998211275
 GameObject:
   m_ObjectHideFlags: 0
@@ -10822,8 +10903,9 @@ GameObject:
   - component: {fileID: 2040047352}
   - component: {fileID: 2040047354}
   - component: {fileID: 2040047353}
+  - component: {fileID: 2040047355}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: Accessory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10884,6 +10966,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040047351}
   m_CullTransparentMesh: 0
+--- !u!114 &2040047355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040047351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf02b849a71768c4396cf57f1bc70b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equipPrefab: {fileID: 3160511658817982257, guid: 01add17fab6b3bf4da279a490b150716,
+    type: 3}
 --- !u!1 &2043394798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 101370, guid: a129819142cb32d4c8161de497774039,

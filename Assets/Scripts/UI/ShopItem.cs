@@ -6,24 +6,24 @@ using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
-    private Image image;
-    private Text names;
+    protected Image image;
+    protected Text names;
     protected Text effect;
-    private Text price;
+    protected Text price;
     protected Text totalPrice;
     protected InputField inputField;
     private Button buyBtn;
 
     private ObjectInfo objectInfo;
-    private DrugInfo drugInfo;
+    //private DrugInfo drugInfo;
     public ObjectInfo ObjectInfo
     {
         get { return objectInfo; }
     }
-    public DrugInfo DrugInfo
-    {
-        get { return drugInfo; }
-    }
+    //public DrugInfo DrugInfo
+    //{
+    //    get { return drugInfo; }
+    //}
 
     private void Awake()
     {
@@ -42,25 +42,16 @@ public class ShopItem : MonoBehaviour
         });
         inputField.text = "0";
     }
-    private void Start()
+    protected virtual void Start()
     {
-        totalPrice = transform.root.Find("DrugShop").Find("Image").Find("Panel").Find("totalPrice").GetComponent<Text>();
+        
     }
 
     public virtual void SetShopItemInfo(ObjectInfo objectInfo)
     {
-        this.objectInfo = objectInfo;
-        image.sprite = Resources.Load<Sprite>(objectInfo.spritePath);
-        names.text = objectInfo.name;
-        price.text = objectInfo.price_buy.ToString();
+        this.objectInfo = objectInfo;       
     }
-    public virtual void SetShopItemInfo(DrugInfo drugInfo)
-    {
-        this.drugInfo = drugInfo;
-        image.sprite = Resources.Load<Sprite>(drugInfo.spritePath);
-        names.text = drugInfo.name;
-        price.text = drugInfo.price_buy.ToString();
-    }
+   
 
     public virtual void PrintNumberToBuy()
     {
@@ -97,9 +88,9 @@ public class ShopItem : MonoBehaviour
     }
 
 
-    public void ClearNum()
+    public  void ClearNum()
     {
-        DrugInfo.buyNum = 0;
+        objectInfo.buyNum = 0;
         inputField.text = "0";
     }
 }

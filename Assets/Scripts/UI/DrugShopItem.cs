@@ -1,28 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DrugShopItem : ShopItem
 {
-    public override void SetShopItemInfo(DrugInfo drugInfo)
+    protected override void Start()
     {
-        base.SetShopItemInfo(drugInfo);
-        
-        if (drugInfo.hp != 0)
-            effect.text = "+" + drugInfo.hp + nameof(drugInfo.hp).ToUpper();
+        totalPrice = transform.root.Find("DrugShop").Find("Image").Find("Panel").Find("totalPrice").GetComponent<Text>();
+    }
+    public override void SetShopItemInfo(ObjectInfo objectInfo)
+    {
+        base.SetShopItemInfo(objectInfo);
+        DrugInfo drug = ObjectsInfo.Instance.GetDrugInfo(objectInfo.id);
+        image.sprite = Resources.Load<Sprite>(drug.spritePath);
+        names.text = drug.name;
+        price.text = drug.price_buy.ToString();
+        if (drug.hp != 0)
+            effect.text = "+" + drug.hp + nameof(drug.hp).ToUpper();
         else
-            effect.text = "+" + drugInfo.mp + nameof(drugInfo.mp).ToUpper();
+            effect.text = "+" + drug.mp + nameof(drug.mp).ToUpper();
     }
 
     public override void PrintNumberToBuy()
     {
-       // DrugInfo tempO = DrugInfo;
-        DrugInfo.buyNum += int.Parse(inputField.text);
+        DrugInfo durg = ObjectsInfo.Instance.GetDrugInfo(ObjectInfo.id);
+        durg.buyNum += int.Parse(inputField.text);
         DrugShop.instance.onClose += ClearNum;
-        totalPrice.text = (int.Parse(totalPrice.text) + DrugInfo.price_buy * int.Parse(inputField.text)).ToString();
+        totalPrice.text = (int.Parse(totalPrice.text) + durg.price_buy * int.Parse(inputField.text)).ToString();
         if (DrugShop.instance.totalPricePanel.activeSelf == false)
             DrugShop.instance.totalPricePanel.SetActive(true);
-        Debug.Log(DrugInfo.id + "," + DrugInfo.buyNum);
+        Debug.Log(durg.id + "," + durg.buyNum);
     }
 
 

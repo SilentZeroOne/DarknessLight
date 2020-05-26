@@ -17,7 +17,7 @@ public class PlayerStatus : MonoBehaviour
     public int speed_plus = 0;
 
     public int point_remain=0;//剩余的点数
-
+    public Job job = Job.Magician;
 
 
     private static PlayerStatus instance;

@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
-    private Image itemImg;
-    private Text number;
+    protected Image itemImg;
+    protected Text number;
     private UIDrag uiDrag;
     private Canvas canvas;
     private int defaultSort;
 
-    private ObjectInfo objectInfo;
+    protected ObjectInfo objectInfo;
     public ObjectInfo ObjectInfo
     {
         get { return objectInfo; }
@@ -24,7 +24,7 @@ public class Item : MonoBehaviour
     private float moveOriginTimer; //记时
     private float moveOriginTime = 0.2f; //时间
     private bool isMovingOrigin;
-    private void Awake()
+    protected virtual void Awake()
     {
         itemImg = GetComponent<Image>();
         number = transform.Find("Text").GetComponent<Text>();
@@ -94,7 +94,7 @@ public class Item : MonoBehaviour
         }
     }
 
-    public void SetObjectInfo(ObjectInfo objectInfo)
+    public virtual void SetObjectInfo(ObjectInfo objectInfo)
     {
         this.objectInfo = objectInfo;
 
@@ -119,7 +119,7 @@ public class Item : MonoBehaviour
 
     }
 
-    public string GetItemInfo()
+    public virtual string GetItemInfo()
     {
         return objectInfo.GetItemInfo();
     }

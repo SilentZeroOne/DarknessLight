@@ -10,18 +10,9 @@ public class FunctionBar : MonoBehaviour
         #region 测试添加物品
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            int num = Random.Range(1001, 1004);
+            int num = Random.Range(2001, 2023);
 
-            if (Inventory.instance.objects.Contains(ObjectsInfo.Instance.ObjDict[num]))
-            {
-                ObjectsInfo.Instance.ObjDict[num].count++;
-            }
-            else
-            {
-                Inventory.instance.objects.Add(ObjectsInfo.Instance.ObjDict[num]);
-            }
-            
-                Inventory.instance.LoadData();
+            Inventory.instance.AddObjectData(ObjectsInfo.Instance.EquipDict[num], 1);
         }
         #endregion
     }

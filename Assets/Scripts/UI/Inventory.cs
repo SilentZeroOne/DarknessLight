@@ -34,7 +34,8 @@ public class Inventory : PanelBase
         
    // }
     void Start()
-    {       
+    {
+       // InitData();     
         LoadData();
     }
 
@@ -61,8 +62,8 @@ public class Inventory : PanelBase
     }
     public void InitData()
     {
-        objects.Add(ObjectsInfo.Instance.ObjDict[1001]);
-        objects.Add(ObjectsInfo.Instance.ObjDict[1002]);
+        objects.Add(ObjectsInfo.Instance.EquipDict[2003]);
+        objects.Add(ObjectsInfo.Instance.EquipDict[2022]);
     }
 
     public void LoadData()
@@ -106,7 +107,41 @@ public class Inventory : PanelBase
         return Instantiate(itemPrefab);
     }
 
+    public void RemoveObject(ObjectInfo objectInfo)
+    {
+        objects.Remove(objectInfo);
+    }
+    public void AddObjectData(ObjectInfo objectInfo,int num)
+    {
+        
+        if (objects.Contains(objectInfo))
+        {
+            objectInfo.count += num;
+            for (int i = 0; i < grids.Count; i++)
+            {
+                if (grids[i].Item != null)
+                {
+                    if (grids[i].Item.ObjectInfo ==objectInfo)
+                    {
+                        grids[i].Item.SetObjectInfo(objectInfo);
+                        break;
+                    }
 
+                }
+            }
+            
+        }
+        else
+        {
+            objects.Add(objectInfo);
+            objectInfo.count = 0;
+            objectInfo.count += num;
+            Item item = GetItem().GetComponent<Item>();
+            item.SetObjectInfo(objectInfo);
+            GetGrid().SetItem(item);
+        }
+
+    }
 
     public void HideAllItem()
     {
