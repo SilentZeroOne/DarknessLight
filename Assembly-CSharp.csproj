@@ -101,6 +101,10 @@
     <Compile Include="Assets\Scripts\Player\PlayerDir.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />
+    <Compile Include="Assets\Scripts\Skil\Skill.cs" />
+    <Compile Include="Assets\Scripts\Skil\SkillItem.cs" />
+    <Compile Include="Assets\Scripts\Skil\SkillPanel.cs" />
+    <Compile Include="Assets\Scripts\Skil\SkillsInfo.cs" />
     <Compile Include="Assets\Scripts\UI\AccessoryGrid.cs" />
     <Compile Include="Assets\Scripts\UI\ArmorGrid.cs" />
     <Compile Include="Assets\Scripts\UI\ContentControl.cs" />
@@ -120,9 +124,11 @@
     <Compile Include="Assets\Scripts\UI\ShieldGrid.cs" />
     <Compile Include="Assets\Scripts\UI\ShoeGrid.cs" />
     <Compile Include="Assets\Scripts\UI\ShopItem.cs" />
+    <Compile Include="Assets\Scripts\UI\ShortCutGrid.cs" />
     <Compile Include="Assets\Scripts\UI\StatusPanel.cs" />
     <Compile Include="Assets\Scripts\UI\TipsPanel.cs" />
     <Compile Include="Assets\Scripts\UI\UIDrag.cs" />
+    <None Include="Assets\SkillsInfoList.txt" />
     <None Include="Assets\Demigiant\readme_DOTweenPro.txt" />
     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <None Include="Assets\ObjectsInfo.txt" />

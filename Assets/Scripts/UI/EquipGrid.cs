@@ -10,6 +10,10 @@ public class EquipGrid : ItemGrid
     protected Job job;
     protected EquipType currentEquipType;
 
+    public int atk;
+    public int def;
+    public int speed;
+
     protected virtual void Awake()
     {
         
@@ -25,6 +29,7 @@ public class EquipGrid : ItemGrid
         EquipItem item =equipObj.GetComponent<EquipItem>();
         item.SetObjectInfo(equipmentInfo);
         SetItem(item);
+        UpdatePropertry();
     }
     public virtual void UnEquip()
     {
@@ -61,6 +66,12 @@ public class EquipGrid : ItemGrid
     }
     public void UpdatePropertry()
     {
-
+        if (equipmentInfo != null)
+        {
+            atk = equipmentInfo.atk;
+            def = equipmentInfo.def;
+            speed = equipmentInfo.speed;
+        }
+        Debug.Log(atk + " " + def + " " + speed);
     }
 }

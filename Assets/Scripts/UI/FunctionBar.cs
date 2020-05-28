@@ -31,7 +31,7 @@ public class FunctionBar : MonoBehaviour
     }
     public void OnSkillBtnClick()
     {
-
+        SkillPanel.instance.ChangeState();
     }
 
     public void OnStatusBtnClick()

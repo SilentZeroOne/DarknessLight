@@ -77,7 +77,7 @@ public class ItemGrid : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
             }
         }
     }
-    public void ClearGrid()
+    public virtual void ClearGrid()
     {
         item.gameObject.SetActive(false);
         item = null;
