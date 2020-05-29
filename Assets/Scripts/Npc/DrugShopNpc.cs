@@ -8,7 +8,16 @@ public class DrugShopNpc : NPC
     {
         if (Input.GetMouseButtonDown(1))
         {
-            DrugShop.instance.ChangeState();
+            if (distanceBetweenPlayer <= distance)
+                DrugShop.instance.ChangeState();
+        }
+    }
+    protected override void Update()
+    {
+        base.Update();
+        if (distanceBetweenPlayer > distance)
+        {
+            DrugShop.instance.Hide();
         }
     }
 }

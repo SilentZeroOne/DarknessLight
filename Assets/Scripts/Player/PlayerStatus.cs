@@ -6,9 +6,11 @@ public class PlayerStatus : MonoBehaviour
 {
     public int level = 1;
     public int coins = 200;
-    public int hp = 100;
-    public int mp = 100;
-
+    public int hp = 100;//最大值
+    public int hp_remain = 100;
+    public int mp = 100;//最大值
+    public int mp_remain = 100;
+    public string playerName="Default";
     public int attack = 20;
     public int attack_plus = 0;
     public int def = 20;

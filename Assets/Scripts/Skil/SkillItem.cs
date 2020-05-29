@@ -11,6 +11,7 @@ public class SkillItem : MonoBehaviour
     private Text applyType;
     private Text des;
     private Text costMP;
+    private GameObject mask;
 
     private Skill skill;
     private UIDrag uiDrag;
@@ -34,8 +35,10 @@ public class SkillItem : MonoBehaviour
         applyType = transform.Find("applyType").GetComponent<Text>();
         des = transform.Find("des").GetComponent<Text>();
         costMP = transform.Find("costMP").GetComponent<Text>();
+        mask= transform.Find("Icon_mask").gameObject;
         uiDrag =image.GetComponent<UIDrag>();
         originImagePos = image.transform.localPosition;
+        mask.SetActive(false);
 
         uiDrag.onStartDrag += OnStartDrag;
         uiDrag.onEndDrag += OnEndDrag;
@@ -96,6 +99,18 @@ public class SkillItem : MonoBehaviour
                 isMovingOrigin = false;
                 onMoveEnd?.Invoke();
             }
+        }
+    }
+
+    public void UpdateShow(int level)
+    {
+        if (skill.level <= level)
+        {
+            mask.SetActive(false);
+        }
+        else
+        {
+            mask.SetActive(true);
         }
     }
 }

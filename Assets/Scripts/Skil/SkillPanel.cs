@@ -21,6 +21,7 @@ public class SkillPanel : PanelBase
     {
         InitItems();
         LoadData();
+        UpdateShow();
     }
 
     private void InitItems()
@@ -42,7 +43,11 @@ public class SkillPanel : PanelBase
             content.SetSkillItem(LoadItems(skills[i]));
         }
     }
-
+    public override void Show()
+    {
+        base.Show();
+        UpdateShow();
+    }
 
     private SkillItem LoadItems(Skill skill)
     {
@@ -50,5 +55,13 @@ public class SkillPanel : PanelBase
         SkillItem skillItem = obj.GetComponent<SkillItem>();
         skillItem.SetSkillItem(skill);
         return skillItem;
+    }
+    private void UpdateShow()
+    {
+        SkillItem[] items = GetComponentsInChildren<SkillItem>();
+        foreach (var item in items)
+        {
+            item.UpdateShow(PlayerStatus.Instance.level);
+        }
     }
 }

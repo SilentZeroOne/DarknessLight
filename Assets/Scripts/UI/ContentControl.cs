@@ -5,7 +5,8 @@ using UnityEngine;
 public class ContentControl : MonoBehaviour
 {
     public static ContentControl instance;
-    private List<DrugShopItem> shopItems=new List<DrugShopItem>();
+    private List<DrugShopItem> drugShopItems=new List<DrugShopItem>();
+    private List<WeaponShopItem> weaponShopItems = new List<WeaponShopItem>();
     private List<SkillItem> skillItems = new List<SkillItem>();
     
     private void Awake()
@@ -16,12 +17,23 @@ public class ContentControl : MonoBehaviour
 
     public void SetShopItem(DrugShopItem shopItem)
     {
-        shopItems.Add(shopItem);
-        foreach (var item in shopItems)
+        drugShopItems.Add(shopItem);
+        foreach (var item in drugShopItems)
         {
             item.transform.SetParent(transform);
             item.transform.localScale = Vector3.one;
             item.transform.GetComponent<RectTransform>().anchoredPosition3D=new Vector3(1,1,0);
+        }
+    }
+
+    public void SetShopItem(WeaponShopItem shopItem)
+    {
+        weaponShopItems.Add(shopItem);
+        foreach (var item in weaponShopItems)
+        {
+            item.transform.SetParent(transform);
+            item.transform.localScale = Vector3.one;
+            item.transform.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(1, 1, 0);
         }
     }
     public void SetSkillItem(SkillItem skillItem)
@@ -39,4 +51,5 @@ public class ContentControl : MonoBehaviour
             item.transform.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(1, 1, 0);
         }
     }
+
 }

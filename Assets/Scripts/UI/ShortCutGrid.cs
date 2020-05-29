@@ -52,6 +52,16 @@ public class ShortCutGrid : ItemGrid
     {
         SkillPanel.instance.currentGrid = null;
     }
+    public override void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.pointerId == -2)
+        {
+            if (skillItem != null)
+            {
+                ClearGrid();
+            }
+        }
+    }
     public override void ClearGrid()
     {
         Destroy(newImg);

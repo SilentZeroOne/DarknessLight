@@ -25,14 +25,11 @@ public class BarNpc : NPC
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1)&&distanceBetweenPlayer <= distance)
         {
             if (isInTask)
             {
@@ -46,6 +43,14 @@ public class BarNpc : NPC
             }
 
             ShowQuest();
+        }
+    }
+    protected override void Update()
+    {
+        base.Update();
+        if (distanceBetweenPlayer > distance)
+        {
+            CloseClick();
         }
     }
 
