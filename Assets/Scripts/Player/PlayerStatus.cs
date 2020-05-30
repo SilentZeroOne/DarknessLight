@@ -33,6 +33,10 @@ public class PlayerStatus : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        
+    }
+    private void Start()
+    {
         GetExp(0);
     }
 
