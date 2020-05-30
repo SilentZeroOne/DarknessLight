@@ -8,6 +8,8 @@ TagManager:
   - Fire
   - Ground
   - Button
+  - ItemGrid
+  - ShortCutGrid
   layers:
   - Default
   - TransparentFX

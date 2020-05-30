@@ -30,7 +30,7 @@ public class DrugShopItem : ShopItem
         totalPrice.text = (int.Parse(totalPrice.text) + durg.price_buy * int.Parse(inputField.text)).ToString();
         if (DrugShop.instance.totalPricePanel.activeSelf == false)
             DrugShop.instance.totalPricePanel.SetActive(true);
-        Debug.Log(durg.id + "," + durg.buyNum);
+        //Debug.Log(durg.id + "," + durg.buyNum);
     }
 
 

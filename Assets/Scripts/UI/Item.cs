@@ -54,6 +54,7 @@ public class Item : MonoBehaviour
     {
         canvas.sortingOrder = defaultSort + 1;
         Inventory.instance.currentDrag = this;
+        SkillPanel.instance.currentDragItem = this;
     }
 
     public void OnEndDrag()
@@ -63,11 +64,17 @@ public class Item : MonoBehaviour
             Inventory.instance.currentGrid.DragToThisGrid(Inventory.instance.currentDrag);
             canvas.sortingOrder = defaultSort;
         }
+        else if (SkillPanel.instance.currentGrid != null)
+        {
+            SkillPanel.instance.currentGrid.DragToThisGrid(SkillPanel.instance.currentDragItem);
+            MoveToOrigin(() => canvas.sortingOrder = defaultSort);
+        }
         else
         {
             MoveToOrigin(() => canvas.sortingOrder = defaultSort);
         }
         Inventory.instance.currentDrag = null;
+        SkillPanel.instance.currentDragItem = null;
     }
     public void OnDrag()
     {
@@ -109,7 +116,10 @@ public class Item : MonoBehaviour
         if (objectInfo.count == 0)
         {
             //清空格子
+            if(transform.parent.tag==TagsManager.itemGrid)
             transform.parent.GetComponent<ItemGrid>().ClearGrid();
+            if(transform.parent.tag==TagsManager.shrotcutGrid)
+            transform.parent.GetComponent<ShortCutGrid>().DestroyItem();
 
         }
         else

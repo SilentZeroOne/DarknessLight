@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ItemGrid : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerClickHandler
 {
-    protected Item item;
+    public Item item;
 
     public Item Item
     {
@@ -18,6 +18,7 @@ public class ItemGrid : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     {
         //清空以前格子
         ItemGrid lastGrid = item.transform.parent.GetComponent<ItemGrid>();
+        //Debug.Log(lastGrid.name);
         if (this.item == null)
         {
             lastGrid.ClearGrid();
@@ -31,7 +32,7 @@ public class ItemGrid : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
         }
     }
 
-    public void SetItem(Item item)
+    public virtual void SetItem(Item item)
     {
         this.item = item;
         this.item.gameObject.SetActive(true);
@@ -81,5 +82,6 @@ public class ItemGrid : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,I
     {
         item.gameObject.SetActive(false);
         item = null;
+       
     }
 }

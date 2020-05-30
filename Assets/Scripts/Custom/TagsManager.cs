@@ -6,4 +6,6 @@ public class TagsManager : MonoBehaviour
 {
     public const string ground = "Ground";//const 公有的 不可变的变量
     public const string player = "Player";
+    public const string itemGrid = "ItemGrid";
+    public const string shrotcutGrid = "ShortCutGrid";
 }

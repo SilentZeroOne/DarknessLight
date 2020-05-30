@@ -10,6 +10,7 @@ public class SkillPanel : PanelBase
     public ContentControl content;
 
     public SkillItem currentDrag;
+    public Item currentDragItem;
     public ShortCutGrid currentGrid;
     protected override void Awake()
     {

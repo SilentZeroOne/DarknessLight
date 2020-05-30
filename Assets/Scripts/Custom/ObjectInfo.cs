@@ -134,7 +134,8 @@ public class DrugInfo : ObjectInfo
     public override void UseObject()
     {
         base.UseObject();
-        Debug.Log("使用药品");
+        PlayerStatus.Instance.UseDrug(hp, mp);
+        
     }
 }
 public enum EquipType

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5419061532067751379}
   m_Layer: 5
   m_Name: itemGrid
-  m_TagString: Untagged
+  m_TagString: ItemGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,3 +86,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2845bfcea70fef4980cc3744b9c435d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}

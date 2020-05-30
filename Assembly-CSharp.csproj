@@ -122,7 +122,10 @@
     <Compile Include="Assets\Scripts\Skil\SkillsInfo.cs" />
     <Compile Include="Assets\Scripts\UI\AccessoryGrid.cs" />
     <Compile Include="Assets\Scripts\UI\AvatarFrame.cs" />
+    <Compile Include="Assets\Scripts\UI\CleanInventoryRemainItem.cs" />
+    <Compile Include="Assets\Scripts\UI\CleanRemainItem.cs" />
     <Compile Include="Assets\Scripts\UI\ContentControl.cs" />
+    <Compile Include="Assets\Scripts\UI\ExpBar.cs" />
     <Compile Include="Assets\Scripts\UI\FunctionBar.cs" />
     <Compile Include="Assets\Scripts\UI\Inventory.cs" />
     <Compile Include="Assets\Scripts\UI\Item.cs" />

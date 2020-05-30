@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerStatus : MonoBehaviour
 {
     public int level = 1;
+    public float exp = 0; //当前获得经验   
+    public float totalExp=130;
+
     public int coins = 200;
     public int hp = 100;//最大值
     public int hp_remain = 100;
@@ -30,10 +33,22 @@ public class PlayerStatus : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        GetExp(0);
     }
 
 
-
+    public void GetExp(float exp)
+    {
+        this.exp += exp;
+        totalExp = level * 30 + 100;
+        while (this.exp >= totalExp)
+        {
+            level++;
+            this.exp -= totalExp;
+            totalExp = level * 30 + 100;
+        }
+        ExpBar.instance.SetValue(this.exp / totalExp);
+    }
 
     public void GetCoins(int addCoin)
     {
@@ -48,5 +63,15 @@ public class PlayerStatus : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void UseDrug(int hp,int mp)
+    {
+        hp_remain += hp;
+        mp_remain += mp;
+        if (hp_remain > this.hp)
+            hp_remain = this.hp;
+        if (mp_remain > this.mp)
+            mp_remain = this.mp;
     }
 }
