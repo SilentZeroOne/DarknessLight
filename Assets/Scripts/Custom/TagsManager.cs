@@ -8,4 +8,5 @@ public class TagsManager : MonoBehaviour
     public const string player = "Player";
     public const string itemGrid = "ItemGrid";
     public const string shrotcutGrid = "ShortCutGrid";
+    public const string enemy = "Enemy";
 }

@@ -94,6 +94,8 @@
     <Compile Include="Assets\Scripts\Custom\ObjectsInfo.cs" />
     <Compile Include="Assets\Scripts\Custom\PressAnyKey.cs" />
     <Compile Include="Assets\Scripts\Custom\TagsManager.cs" />
+    <Compile Include="Assets\Scripts\Enemy\DamageNumber.cs" />
+    <Compile Include="Assets\Scripts\Enemy\WolfBaby.cs" />
     <Compile Include="Assets\Scripts\Equipment\ArmorGrid.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipGrid.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipItem.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Assets\Scripts\Npc\NPC.cs" />
     <Compile Include="Assets\Scripts\Npc\WeaponShopNPC.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimation.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerDir.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerStatus.cs" />

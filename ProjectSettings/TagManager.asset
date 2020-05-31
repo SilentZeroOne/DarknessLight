@@ -10,6 +10,7 @@ TagManager:
   - Button
   - ItemGrid
   - ShortCutGrid
+  - Enemy
   layers:
   - Default
   - TransparentFX
