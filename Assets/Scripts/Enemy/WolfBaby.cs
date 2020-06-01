@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +14,14 @@ public enum WolfState
 
 public class WolfBaby : MonoBehaviour
 {
-    private Animator animator;
+    protected Animator animator;
     private CharacterController controller;
     private new Renderer renderer;
-    private WolfState state;
+    public WolfState state;
     public float speed = 1;
     public int hp = 100;
     public int attack = 10;
+    public int exp = 20;
     public Transform target;
     public float maxFollowDistance = 10;
     public float attackDistance=2;
@@ -30,13 +32,17 @@ public class WolfBaby : MonoBehaviour
     
 
     public bool isMiss;
+    public bool isDead;
+    private bool inBattle;
     public AudioClip missClip;
     public GameObject damageNumPrefab;
     public Transform damageNumPos;
 
-    public int attackRate = 2;
+    public int attackRate = 1;
     private float attackTimer = 0;
     public float crazyAttackRate = 0.3f;
+
+    public WolfSpawn spawn;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -51,28 +57,25 @@ public class WolfBaby : MonoBehaviour
             animator.SetBool("isWalk", true);
             controller.SimpleMove(transform.forward*speed);
         }
-        else if (state==WolfState.Attack)
-        {
-
-        }
+       // else if (state==WolfState.Attack)
+        //{
+            AutoAttack();
+        //}
         timer += Time.deltaTime;
-        if ((state==WolfState.Idle||state==WolfState.Walk)&&timer >= time)
+        if (!inBattle&&timer >= time)
         {
             timer = 0;
             RandomState();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            TakeDamage(10);
         }
     }
 
     void AutoAttack()
     {
         
-        if (target != null )
+        if (target != null &&!PlayerStatus.Instance.isDead)
         {
             float distance = Vector3.Distance(transform.position, target.position);
+            inBattle = true;
             if (distance > maxFollowDistance)
             {
                 target = null;
@@ -80,8 +83,9 @@ public class WolfBaby : MonoBehaviour
             }
             else if (distance<=attackDistance)
             {
+                animator.SetBool("isWalk", false);
                 attackTimer += Time.deltaTime;
-                if (attackTimer >= attackRate)
+                if (attackTimer >= attackRate&&!isDead)
                 {
                     state = WolfState.Attack;
                     RandomAttack();                  
@@ -92,25 +96,28 @@ public class WolfBaby : MonoBehaviour
             {
                 transform.LookAt(target);
                 state = WolfState.Walk;
+              //  AutoAttack();
             }
         }
         else
         {
-            state = WolfState.Idle;
+            inBattle = false;
         }
     }
 
-    void RandomAttack()
+   protected virtual void RandomAttack()
     {
         float val = Random.Range(0f, 1f);
         if (val <= crazyAttackRate)
         {
             animator.SetBool("Attack2", true);
+            PlayerStatus.Instance.GetDamage(attack * 1.5f);
             Invoke("SetAttack2", 0.733f);
         }
         else
         {
             animator.SetBool("Attack1", true);
+            PlayerStatus.Instance.GetDamage(attack);
             Invoke("SetAttack1", 0.633f);
         }
     }
@@ -132,8 +139,10 @@ public class WolfBaby : MonoBehaviour
     }
     public void TakeDamage(int attack)
     {
-        Debug.Log("get damage");
         if (state == WolfState.Death) return;
+        target = GameObject.FindGameObjectWithTag(TagsManager.player).transform;
+        state = WolfState.Attack;
+        animator.SetBool("isWalk", false);
         float value = Random.Range(0f, 1f);
         if (value <= miss_rate)
         {
@@ -157,10 +166,7 @@ public class WolfBaby : MonoBehaviour
             else Invoke("SetTakeDamage", 0.6f);
             if (hp <= 0)
             {
-                state = WolfState.Death;
-                animator.SetBool("isDead", true);
-                animator.SetBool("isWalk", false);
-                Destroy(gameObject, 2f);
+                OnDeath();
             }
         }
     }
@@ -178,6 +184,21 @@ public class WolfBaby : MonoBehaviour
         renderer.material.color = Color.red;
         yield return new WaitForSeconds(1);
         renderer.material.color = Color.white;
+    }
+    private void OnDeath()
+    {
+        state = WolfState.Death;
+        animator.SetBool("isDead", true);
+        animator.SetBool("isWalk", false);
+        isDead = true;
+        spawn.MinusNum();
+        controller.enabled = false;
+        if (BarNpc.instance.isInTask)
+        {
+            BarNpc.instance.killCount++;
+        }
+        PlayerStatus.Instance.GetExp(exp);
+        Destroy(gameObject, 2f);
     }
 
     private void SetMiss()

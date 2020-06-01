@@ -57,7 +57,7 @@ public class DamageNumber : MonoBehaviour
 		if (mScreen.z > 0)
 		{
 			//Debug.Log(GameObject.FindGameObjectWithTag(TagsManager.enemy).GetComponent<WolfBaby>().isMiss);
-			if (GameObject.FindGameObjectWithTag(TagsManager.enemy).GetComponent<WolfBaby>().isMiss)
+			if (Value==0)
 			{
 				GUI.Label(new Rect(mPoint.x, mPoint.y, ContentWidth, ContentHeight), "Miss", style);
 			}

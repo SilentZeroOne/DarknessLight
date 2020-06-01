@@ -19,5 +19,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool("isMoving", movement.isMoving);
         animator.SetBool("isNormalAttacking", playerAttack.isAttacking);
+        animator.SetBool("isDead", PlayerStatus.Instance.isDead);
     }
 }

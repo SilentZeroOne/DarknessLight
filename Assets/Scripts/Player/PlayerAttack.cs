@@ -15,20 +15,32 @@ public class PlayerAttack : MonoBehaviour
     public PlayerState state = PlayerState.ControlWalk;
     private Animator animator;
     private PlayerMovement movement;
+    public static PlayerAttack instance;
 
     public float normalAtkTime = 1;
-    private float attackTimer = 0;
+    public float attackTimer = 0;
     public float minAtkDistance = 5;
+    public float normalAttackRate = 2;
 
     public bool isAttacking;
     public Transform normalAttackTarget;
 
-    private bool atkIt;
+    // private bool atkIt;
+    public bool showEffect;
+    public GameObject normalAtkeffect;
+    public GameObject[] efxArray;
 
+    public Dictionary<string, GameObject> efxDict=new Dictionary<string, GameObject>();
     private void Awake()
     {
+        instance = this;
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
+
+        foreach (var item in efxArray)
+        {
+            efxDict.Add(item.name, item);
+        }
     }
 
     private void Update()
@@ -38,10 +50,11 @@ public class PlayerAttack : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             bool isCollider = Physics.Raycast(ray, out hit);
-            if (isCollider && hit.collider.tag == TagsManager.enemy)
+            if (isCollider && hit.collider.tag == TagsManager.enemy&&state != PlayerState.NormalAtk)
             {
                 normalAttackTarget = hit.collider.transform;
                 state = PlayerState.NormalAtk;
+                showEffect = false;
             }
             else
             {
@@ -62,10 +75,24 @@ public class PlayerAttack : MonoBehaviour
                 attackTimer += Time.deltaTime;
                 if (attackTimer >= normalAtkTime)
                 {
+                    isAttacking = false;
+                    if (!showEffect)
+                    {
+                        showEffect = true;
+                        Instantiate(normalAtkeffect, normalAttackTarget.position, Quaternion.identity);
+                        normalAttackTarget.GetComponent<WolfBaby>().TakeDamage(GetAttack());
+
+                    }
+                }
+                if (attackTimer >= (1f / normalAttackRate))
+                {
+                    attackTimer = 0;
+                    showEffect = false;
                     isAttacking = true;
-                    StartCoroutine(NormalAttack());
-                    //normalAttackTarget.GetComponent<WolfBaby>().TakeDamage(PlayerStatus.Instance.attack);
-                    //Invoke("SetNormalAttack", 0.8f);
+                    if (normalAttackTarget.GetComponent<WolfBaby>().isDead)
+                    {
+                        isAttacking = false;
+                    }
                 }
             }
             else
@@ -75,17 +102,29 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-    void SetNormalAttack()
+    public int GetAttack()
     {
-        isAttacking = false;
-
-        attackTimer = 0;
+        return EquipmentPanel.instance.totalAtk + PlayerStatus.Instance.attack + PlayerStatus.Instance.attack_plus;
     }
-    IEnumerator NormalAttack()
+    public void UseSkill(Skill skill)
+    {
+        state = PlayerState.SkillAtk;
+        switch (skill.applyType)
+        {
+            case ApplyType.Buff:
+                OnBuffSkillUse();
+                break;
+            case ApplyType.Passive:
+                OnPassiveSkillUse(skill);
+                break;
+        }
+    }
+    void OnBuffSkillUse()
     {
 
+    }
+    void OnPassiveSkillUse(Skill  skill)
+    {
 
-        yield return new WaitForSeconds(0.8f);
-        SetNormalAttack();
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class BarNpc : NPC
 {
+    public static BarNpc instance;
     public GameObject questPanel;
     private DOTweenAnimation tweener;
     public DOTweenAnimation textTweener;
@@ -18,9 +19,10 @@ public class BarNpc : NPC
     public int killCount = 0;
     public int shouldKill = 10;
 
-    private bool isInTask;
+    public bool isInTask;
     void Start()
     {
+        instance = this;
         tweener = questPanel.GetComponent<DOTweenAnimation>();
     }
 

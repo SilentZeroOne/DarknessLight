@@ -75,6 +75,8 @@
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTextMeshPro.cs" />
     <Compile Include="Assets\Demigiant\DOTweenPro\DOTweenTk2d.cs" />
     <Compile Include="Assets\RPG\Effect\Effects_01\Prefebs\DestroyForTime.cs" />
+    <Compile Include="Assets\RPG\Effect\Effects_01\Prefebs\FollowTarget.cs" />
+    <Compile Include="Assets\RPG\Effect\Effects_02\AnimationSpeed.cs" />
     <Compile Include="Assets\RPG\Effect\Effects_02\ScrollUV.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
@@ -96,6 +98,9 @@
     <Compile Include="Assets\Scripts\Custom\TagsManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\DamageNumber.cs" />
     <Compile Include="Assets\Scripts\Enemy\WolfBaby.cs" />
+    <Compile Include="Assets\Scripts\Enemy\WolfBoss.cs" />
+    <Compile Include="Assets\Scripts\Enemy\WolfNormal.cs" />
+    <Compile Include="Assets\Scripts\Enemy\WolfSpawn.cs" />
     <Compile Include="Assets\Scripts\Equipment\ArmorGrid.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipGrid.cs" />
     <Compile Include="Assets\Scripts\Equipment\EquipItem.cs" />

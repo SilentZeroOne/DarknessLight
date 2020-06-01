@@ -17,9 +17,9 @@ public class ShortCutGrid : ItemGrid
     private void Update()
     {
         if (Input.GetKeyDown(keyCode))
-        {  
-            if(skillItem!=null)       
-               Debug.Log("发动魔法" + skillItem.Skill.name);
+        {
+            if (skillItem != null)
+                skillItem.Skill.UseSkill();
             if (item != null)
                 item.ObjectInfo.UseObject();
         }

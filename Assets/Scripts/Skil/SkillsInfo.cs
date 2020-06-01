@@ -107,6 +107,9 @@ public class SkillsInfo : MonoBehaviour
             }
             skill.distance = float.Parse(proArray[13]);
             skill.spritePath = "Icon/" + skill.icon_name;
+            skill.efxName = proArray[14];
+            skill.animName = proArray[15];
+            skill.duration = float.Parse(proArray[16]); 
             skillDict.Add(skill.id, skill);
         }
     }
@@ -115,6 +118,7 @@ public class SkillsInfo : MonoBehaviour
         skillDict.TryGetValue(id, out Skill info);
         return info;
     }
+
 }
 
 //作用类型

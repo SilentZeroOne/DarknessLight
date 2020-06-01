@@ -30,6 +30,7 @@ public class EquipGrid : ItemGrid
         item.SetObjectInfo(equipmentInfo);
         SetItem(item);
         UpdatePropertry();
+        AddStatus();
     }
     public virtual void UnEquip()
     {
@@ -38,6 +39,7 @@ public class EquipGrid : ItemGrid
             Inventory.instance.AddObjectData(equipmentInfo,1);
             equipmentInfo = null;
             ClearGrid();
+            ClearStatus();
         }
     }
 
@@ -64,7 +66,7 @@ public class EquipGrid : ItemGrid
         }
         return Instantiate(equipPrefab,transform.position, transform.rotation);
     }
-    public void UpdatePropertry()
+    private void UpdatePropertry()
     {
         if (equipmentInfo != null)
         {
@@ -72,6 +74,18 @@ public class EquipGrid : ItemGrid
             def = equipmentInfo.def;
             speed = equipmentInfo.speed;
         }
-        Debug.Log(atk + " " + def + " " + speed);
+        //Debug.Log(atk + " " + def + " " + speed);
+    }
+    private void AddStatus()
+    {
+        EquipmentPanel.instance.totalAtk += atk;
+        EquipmentPanel.instance.totalDef += def;
+        EquipmentPanel.instance.totalSpeed += speed;
+    }
+    private void ClearStatus()
+    {
+        EquipmentPanel.instance.totalAtk -= atk;
+        EquipmentPanel.instance.totalDef -= def;
+        EquipmentPanel.instance.totalSpeed -= speed;
     }
 }

@@ -11,10 +11,15 @@ public class EquipmentPanel : PanelBase
     public ShieldGrid shieldGrid;
     public ArmorGrid armorGrid;
     public ShoeGrid shoeGrid;
+
+    public int totalAtk;
+    public int totalDef;
+    public int totalSpeed;
     protected override void Awake()
     {
         instance = this;
         base.Awake();
-        
     }
+
+   
 }

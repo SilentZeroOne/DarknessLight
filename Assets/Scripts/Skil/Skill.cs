@@ -19,6 +19,9 @@ public class Skill
     public ReleaseType releaseType;
     public float distance;
     public string spritePath;
+    public string efxName;
+    public string animName;
+    public float duration;
 
     public string GetTypeName(ApplyType applyType)
     {
@@ -34,5 +37,14 @@ public class Skill
                 return "恢复";
         }
         return "";
+    }
+    public void UseSkill()
+    {
+        bool success = PlayerStatus.Instance.CostMP(costMp);
+        if (success)
+        {
+            //释放技能
+            PlayerAttack.instance.UseSkill(this);
+        }
     }
 }
