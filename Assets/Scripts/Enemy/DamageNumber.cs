@@ -9,7 +9,7 @@ public class DamageNumber : MonoBehaviour
 	//屏幕坐标
 	private Vector3 mScreen;
 	//伤害数值
-	public int Value;
+	public float Value;
 
 	//文本宽度
 	public float ContentWidth = 100;

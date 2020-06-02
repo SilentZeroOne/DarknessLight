@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 4;
+    public float speed = 3;
     private PlayerDir dir;
     private CharacterController controller;
     public bool isMoving;
@@ -18,10 +18,12 @@ public class PlayerMovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         attack = GetComponent<PlayerAttack>();
         //stepSource = gameObject.AddComponent<AudioSource>();
+        
     }
 
     void Update()
     {
+        if (PlayerStatus.Instance.isDead) controller.enabled = false;
         if (attack.state == PlayerState.ControlWalk&&!PlayerStatus.Instance.isDead)
         {
             float distance = Vector3.Distance(dir.targetPos, transform.position);

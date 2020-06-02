@@ -22,6 +22,7 @@ public class PlayerStatus : MonoBehaviour
     public int speed_plus = 0;
     public float missRate;
     public bool isDead;
+    public bool isTakeDamage;
 
     public int point_remain=0;//剩余的点数
     public Job job = Job.Magician;
@@ -109,9 +110,13 @@ public class PlayerStatus : MonoBehaviour
         }
         else
         {
+
             if (tempDamage <= 1) tempDamage = 1;
             hp_remain -= tempDamage;
             StartCoroutine(ShowRedBody());
+            isTakeDamage = true;
+            PlayerAnimation.instance.animator.SetFloat("takeDamage", damage / hp);
+            StartCoroutine(TakeDamage());
             obj = Instantiate(damageNumPrefab, transform.position + Vector3.up, Quaternion.identity);
             obj.GetComponent<DamageNumber>().Value = (int)tempDamage;
             if (hp_remain <= 0) isDead = true;
@@ -124,4 +129,13 @@ public class PlayerStatus : MonoBehaviour
         yield return new WaitForSeconds(1);
         renderer.material.color = Color.white;
     }
+    private IEnumerator TakeDamage()
+    {
+        yield return new WaitForSeconds(0.6f);
+        isTakeDamage = false;
+        PlayerAnimation.instance.animator.SetFloat("takeDamage", 0);
+    }
+
+
+
 }

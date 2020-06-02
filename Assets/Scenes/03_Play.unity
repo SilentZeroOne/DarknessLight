@@ -10852,36 +10852,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723020264}
   m_CullTransparentMesh: 0
---- !u!1 &724626645
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 724626646}
-  m_Layer: 11
-  m_Name: damageNumPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &724626646
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 724626645}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1630268965094931235}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &727165404
 GameObject:
   m_ObjectHideFlags: 0
@@ -18690,42 +18660,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 49e91969806d02c4087369644c7c0de8, type: 3}
---- !u!1 &1178465874 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3063710980273289243, guid: 492050b735a41644e854029acb55f714,
-    type: 3}
-  m_PrefabInstance: {fileID: 4331227110609985304}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1178465882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1178465874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3b113304b8b034080b55e2262d2c79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  normalAtkTime: 0.833
-  attackTimer: 0
-  minAtkDistance: 5
-  normalAttackRate: 0.5
-  isAttacking: 0
-  normalAttackTarget: {fileID: 0}
-  showEffect: 0
-  normalAtkeffect: {fileID: 100004, guid: db28bc8977daeff48a6299d2a47ab6f1, type: 3}
-  efxArray:
-  - {fileID: 100000, guid: d5403793b83de7648b0c33ad35e4d64e, type: 3}
-  - {fileID: 100002, guid: 35669565ee85598468654ea6aa681a4c, type: 3}
-  - {fileID: 100002, guid: 7c16394cbab24a443b83dc7c08602b65, type: 3}
-  - {fileID: 100002, guid: af0e4903bd2ea274bb9ab19c26a70cd0, type: 3}
-  - {fileID: 100000, guid: 8e361bb418b94ad4bb22c22c7800a8c2, type: 3}
-  - {fileID: 100000, guid: ab3aaa54f2febe14bbee4311665bfdda, type: 3}
-  - {fileID: 100010, guid: b8935c0c5eb2164488a7361193f7c2f2, type: 3}
-  - {fileID: 100008, guid: 21596ca0707bc404d897fddd6b68a1ba, type: 3}
 --- !u!1 &1179199480 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 101522, guid: a129819142cb32d4c8161de497774039,
@@ -39133,31 +39067,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1630268965094958855, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: stepClips.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1630268965094958855, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: stepClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
-    - target: {fileID: 1630268965094958855, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: stepClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
-    - target: {fileID: 1630268965094958855, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: stepClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
-    - target: {fileID: 1630268965094958855, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: stepClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
     - target: {fileID: 3063710980272858171, guid: 492050b735a41644e854029acb55f714,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -39217,27 +39126,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Magician
-      objectReference: {fileID: 0}
-    - target: {fileID: 3408751543626011160, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: damageNumPos
-      value: 
-      objectReference: {fileID: 724626646}
-    - target: {fileID: 3408751543626011160, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: damageNumPrefab
-      value: 
-      objectReference: {fileID: 8267760543709761297, guid: 4eb007814bd5d194eb162d504aa6a0ff,
-        type: 3}
-    - target: {fileID: 3408751543626011160, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: missClip
-      value: 
-      objectReference: {fileID: 8300000, guid: e20723268b93d6649bf9a94ed9e7721a, type: 3}
-    - target: {fileID: 8234439622388148949, guid: 492050b735a41644e854029acb55f714,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 492050b735a41644e854029acb55f714, type: 3}

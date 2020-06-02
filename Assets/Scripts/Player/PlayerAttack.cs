@@ -16,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
     private Animator animator;
     private PlayerMovement movement;
     public static PlayerAttack instance;
+    private Skill skill;
 
     public float normalAtkTime = 1;
     public float attackTimer = 0;
@@ -23,7 +24,18 @@ public class PlayerAttack : MonoBehaviour
     public float normalAttackRate = 2;
 
     public bool isAttacking;
+    public float attackValue;
+    public float finalAtk;
+    public float addAtk=1;
+
+    public bool attack1;
+    public bool groundImpact;
+    public bool magicBall;
+
+
     public Transform normalAttackTarget;
+    private bool isFirst;
+    public bool isLockingTarget;
 
     // private bool atkIt;
     public bool showEffect;
@@ -45,6 +57,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerStatus.Instance.isDead) return;
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -53,6 +66,7 @@ public class PlayerAttack : MonoBehaviour
             if (isCollider && hit.collider.tag == TagsManager.enemy&&state != PlayerState.NormalAtk)
             {
                 normalAttackTarget = hit.collider.transform;
+                isFirst = true;
                 state = PlayerState.NormalAtk;
                 showEffect = false;
             }
@@ -73,15 +87,19 @@ public class PlayerAttack : MonoBehaviour
                 movement.isMoving = false;
                 transform.LookAt(normalAttackTarget.position);
                 attackTimer += Time.deltaTime;
-                if (attackTimer >= normalAtkTime)
+                if (!isFirst)
                 {
-                    isAttacking = false;
-                    if (!showEffect)
+                    if (attackTimer >= normalAtkTime)
                     {
-                        showEffect = true;
-                        Instantiate(normalAtkeffect, normalAttackTarget.position, Quaternion.identity);
-                        normalAttackTarget.GetComponent<WolfBaby>().TakeDamage(GetAttack());
+                        isAttacking = false;
+                        attackValue = 0;
+                        if (!showEffect)
+                        {
+                            showEffect = true;
+                            Instantiate(normalAtkeffect, normalAttackTarget.position, Quaternion.identity);
+                            normalAttackTarget.GetComponent<WolfBaby>().TakeDamage(finalAtk*GetAttack()*addAtk);
 
+                        }
                     }
                 }
                 if (attackTimer >= (1f / normalAttackRate))
@@ -89,9 +107,13 @@ public class PlayerAttack : MonoBehaviour
                     attackTimer = 0;
                     showEffect = false;
                     isAttacking = true;
+                    isFirst = false;
+                    RandomAttack();
+
                     if (normalAttackTarget.GetComponent<WolfBaby>().isDead)
                     {
                         isAttacking = false;
+                        attackValue = 0;
                     }
                 }
             }
@@ -101,6 +123,10 @@ public class PlayerAttack : MonoBehaviour
                 movement.isMoving = true;
             }
         }
+        if (isLockingTarget && Input.GetMouseButtonDown(0))
+        {
+            OnLockTarget();
+        }
     }
     public int GetAttack()
     {
@@ -108,23 +134,140 @@ public class PlayerAttack : MonoBehaviour
     }
     public void UseSkill(Skill skill)
     {
-        state = PlayerState.SkillAtk;
+
         switch (skill.applyType)
         {
             case ApplyType.Buff:
-                OnBuffSkillUse();
+                StartCoroutine(OnBuffSkillUse(skill));
                 break;
             case ApplyType.Passive:
-                OnPassiveSkillUse(skill);
+               StartCoroutine(OnPassiveSkillUse(skill));
+                break;
+            case ApplyType.SingleTarget:
+                OnSingleSkillUse(skill);
+                break;
+            case ApplyType.MultiTarget:
+
                 break;
         }
     }
-    void OnBuffSkillUse()
+    IEnumerator OnBuffSkillUse(Skill skill)
     {
+        state = PlayerState.SkillAtk;
+        if (skill.animName== "Skill-GroundImpact")
+        {
+            groundImpact = true;
+            yield return new WaitForSeconds(skill.duration);
+            Instantiate(efxDict[skill.efxName], transform.position, Quaternion.identity);
+            groundImpact = false;
+            state = PlayerState.ControlWalk;
+            switch (skill.applyProperty)
+            {
+                case ApplyProperty.Attack:
+                    StartCoroutine(AddATK(skill));
+                    break;
+                case ApplyProperty.AttackSpeed:
+                    StartCoroutine(AddAtkSpeed(skill));
+                    break;
+            }
+        }
+    }
+    IEnumerator AddATK(Skill skill)
+    {
+        addAtk = skill.applyValue / 100 * addAtk;
+        yield return new WaitForSeconds(skill.applyTime);
+        addAtk = addAtk / skill.applyValue * 100;
+    }
+    IEnumerator AddAtkSpeed(Skill skill)
+    {
+        normalAttackRate *= skill.applyValue / 100 ;
+        movement.speed *= skill.applyValue / 100;
+        animator.SetFloat("Speed", 1);
+        yield return new WaitForSeconds(skill.applyTime);
+        normalAttackRate = normalAttackRate/skill.applyValue * 100;
+        movement.speed /= skill.applyValue / 100;
+        animator.SetFloat("Speed", 0);
+    }
+
+    IEnumerator OnPassiveSkillUse(Skill  skill)
+    {
+        state = PlayerState.SkillAtk;
+        if (skill.animName == "Attack1")
+        {
+            attack1 = true;
+
+            yield return new WaitForSeconds(skill.duration);
+            switch (skill.applyProperty)
+            {
+                case ApplyProperty.HP:
+                    PlayerStatus.Instance.UseDrug(skill.applyValue, 0);
+                    break;
+                case ApplyProperty.MP:
+                    PlayerStatus.Instance.UseDrug(0, skill.applyValue);
+                    break;
+            }
+            Instantiate(efxDict[skill.efxName], transform.position, Quaternion.identity);
+            attack1 = false;
+            state = PlayerState.ControlWalk;
+        }
+    }
+
+    void OnSingleSkillUse(Skill skill)
+    {
+        state = PlayerState.SkillAtk;
+        CursorManager.instance.SetLockTarget();
+        isLockingTarget = true;
+        this.skill = skill;
 
     }
-    void OnPassiveSkillUse(Skill  skill)
+    void OnLockTarget()
     {
+        isLockingTarget = false;
+        switch (skill.applyType)
+        {
+            case ApplyType.SingleTarget:
+                StartCoroutine(OnSingleTarget());
+                break;
+        }
+    }
+    IEnumerator OnSingleTarget()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        bool isCollider = Physics.Raycast(ray, out hit);
+        if (isCollider && hit.collider.tag == TagsManager.enemy)
+        {
+            if (skill.animName == "Skill-MagicBall")
+            {
+                magicBall = true;
+                yield return new WaitForSeconds(skill.duration);
+                Instantiate(efxDict[skill.efxName], hit.collider.transform.position, Quaternion.identity);
+                float bounsAtk = skill.applyValue / 100;
+                hit.collider.GetComponent<WolfBaby>().TakeDamage(addAtk*GetAttack() * bounsAtk);
+                bounsAtk = 0;
+                magicBall = false;
+                state = PlayerState.ControlWalk;
+            }
+        }
+        else
+        {
+            state = PlayerState.ControlWalk;
+            CursorManager.instance.SetNormal();
+            PlayerStatus.Instance.mp_remain += skill.costMp;
+        }
+    }
 
+
+    void RandomAttack()
+    {
+        attackValue = Random.Range(0f, 1f);
+        if (attackValue <= 0.8f)
+        {
+            finalAtk = 1;
+        }
+        else
+        {
+            finalAtk *= 1.5f;
+        }
     }
 }

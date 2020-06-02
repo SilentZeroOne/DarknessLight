@@ -19,7 +19,7 @@ public class WolfBaby : MonoBehaviour
     private new Renderer renderer;
     public WolfState state;
     public float speed = 1;
-    public int hp = 100;
+    public float hp = 100;
     public int attack = 10;
     public int exp = 20;
     public Transform target;
@@ -137,7 +137,7 @@ public class WolfBaby : MonoBehaviour
         }
       
     }
-    public void TakeDamage(int attack)
+    public void TakeDamage(float attack)
     {
         if (state == WolfState.Death) return;
         target = GameObject.FindGameObjectWithTag(TagsManager.player).transform;
@@ -157,7 +157,7 @@ public class WolfBaby : MonoBehaviour
 
             hp -= attack;
             GameObject obj = Instantiate(damageNumPrefab, damageNumPos.position, Quaternion.identity);
-            obj.GetComponent<DamageNumber>().Value = attack;
+            obj.GetComponent<DamageNumber>().Value =attack;
             StartCoroutine(ShowBabyBodyRed());
             animator.SetFloat("takeDamage",(float)attack/hp);
             animator.SetBool("isTakeDamage", true);
@@ -173,10 +173,12 @@ public class WolfBaby : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        if(!PlayerAttack.instance.isLockingTarget)
         CursorManager.instance.SetAttack();
     }
     private void OnMouseExit()
     {
+        if(!PlayerAttack.instance.isLockingTarget)
         CursorManager.instance.SetNormal();
     }
     private IEnumerator ShowBabyBodyRed()

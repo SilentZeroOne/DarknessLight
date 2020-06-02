@@ -26,7 +26,8 @@ public class PlayerDir : MonoBehaviour
 
     private void ClickGround()
     {
-        if (Input.GetMouseButtonDown(1)&&!EventSystem.current.IsPointerOverGameObject()&&!PlayerStatus.Instance.isDead)
+        if (PlayerStatus.Instance.isDead) return;
+        if (Input.GetMouseButtonDown(1)&&!EventSystem.current.IsPointerOverGameObject())
         {
             GroundRayCheck(out isCollider, out hit);
             if (isCollider && hit.collider.tag == TagsManager.ground)

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    private Animator animator;
+    public static PlayerAnimation instance;
+
+    public Animator animator;
     private PlayerMovement movement;
     private PlayerAttack playerAttack;
     void Start()
     {
+        instance = this;
         animator = GetComponent<Animator>();
         movement = GetComponent<PlayerMovement>();
         playerAttack = GetComponent<PlayerAttack>();
@@ -19,6 +22,11 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.SetBool("isMoving", movement.isMoving);
         animator.SetBool("isNormalAttacking", playerAttack.isAttacking);
+        animator.SetFloat("Attack", playerAttack.attackValue);
         animator.SetBool("isDead", PlayerStatus.Instance.isDead);
+        animator.SetBool("Attack1", playerAttack.attack1);
+        animator.SetBool("isTakeDamage", PlayerStatus.Instance.isTakeDamage);
+        animator.SetBool("GroundImpact", playerAttack.groundImpact);
+        animator.SetBool("MagicBall", playerAttack.magicBall);
     }
 }
