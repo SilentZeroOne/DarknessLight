@@ -13,7 +13,7 @@ public class PlayerStatus : MonoBehaviour
     public float hp_remain = 100;
     public int mp = 100;//最大值
     public int mp_remain = 100;
-    public string playerName="Default";
+    public string playerName;
     public int attack = 20;
     public int attack_plus = 0;
     public int def = 20;
@@ -40,6 +40,7 @@ public class PlayerStatus : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        playerName = PlayerPrefs.GetString("characterName");
         renderer = GetComponentInChildren<Renderer>(); 
     }
     private void Start()
@@ -57,6 +58,11 @@ public class PlayerStatus : MonoBehaviour
             level++;
             this.exp -= totalExp;
             totalExp = level * 30 + 100;
+            hp = level * 30 + 70;
+            hp_remain = hp;
+            mp = level * 50 + 50;
+            mp_remain = mp;
+            point_remain++;
         }
         ExpBar.instance.SetValue(this.exp / totalExp);
     }

@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5491f752d1522e64e84783889f687b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 10
+  level: 1
   exp: 0
   totalExp: 130
   coins: 200
@@ -753,7 +753,7 @@ MonoBehaviour:
   hp_remain: 100
   mp: 100
   mp_remain: 100
-  playerName: Default
+  playerName: 
   attack: 20
   attack_plus: 0
   def: 20
@@ -763,7 +763,7 @@ MonoBehaviour:
   missRate: 0
   isDead: 0
   isTakeDamage: 0
-  point_remain: 2
+  point_remain: 0
   job: 1
   damageNumPos: {fileID: 724626646}
   damageNumPrefab: {fileID: 8267760543709761297, guid: 4eb007814bd5d194eb162d504aa6a0ff,
@@ -809,6 +809,7 @@ MonoBehaviour:
   attack1: 0
   groundImpact: 0
   magicBall: 0
+  attackCritical: 0
   normalAttackTarget: {fileID: 0}
   isLockingTarget: 0
   showEffect: 0

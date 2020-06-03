@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
     public bool attack1;
     public bool groundImpact;
     public bool magicBall;
-
+    public bool attackCritical;
 
     public Transform normalAttackTarget;
     private bool isFirst;
@@ -147,7 +147,7 @@ public class PlayerAttack : MonoBehaviour
                 OnSingleSkillUse(skill);
                 break;
             case ApplyType.MultiTarget:
-
+                OnSingleSkillUse(skill);
                 break;
         }
     }
@@ -228,6 +228,9 @@ public class PlayerAttack : MonoBehaviour
             case ApplyType.SingleTarget:
                 StartCoroutine(OnSingleTarget());
                 break;
+            case ApplyType.MultiTarget:
+                StartCoroutine(OnMultiTarget());
+                break;
         }
     }
     IEnumerator OnSingleTarget()
@@ -240,21 +243,58 @@ public class PlayerAttack : MonoBehaviour
             if (skill.animName == "Skill-MagicBall")
             {
                 magicBall = true;
+                transform.LookAt(hit.collider.transform);
                 yield return new WaitForSeconds(skill.duration);
                 Instantiate(efxDict[skill.efxName], hit.collider.transform.position, Quaternion.identity);
                 float bounsAtk = skill.applyValue / 100;
                 hit.collider.GetComponent<WolfBaby>().TakeDamage(addAtk*GetAttack() * bounsAtk);
                 bounsAtk = 0;
                 magicBall = false;
-                state = PlayerState.ControlWalk;
+                //state = PlayerState.ControlWalk;
             }
         }
         else
         {
-            state = PlayerState.ControlWalk;
+           
             CursorManager.instance.SetNormal();
             PlayerStatus.Instance.mp_remain += skill.costMp;
         }
+        state = PlayerState.ControlWalk;
+    }
+    IEnumerator OnMultiTarget()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        bool isCollider = Physics.Raycast(ray, out hit);
+        if (isCollider &&hit.collider.tag == TagsManager.ground)
+        {
+            float distance = Vector3.Distance(transform.position,hit.point);
+            if (distance <= minAtkDistance*2)
+            {
+                if (skill.animName == "AttackCritical")
+                {
+                    attackCritical = true;
+                    transform.LookAt(hit.collider.transform);
+                    yield return new WaitForSeconds(skill.duration);
+                    GameObject obj = Instantiate(efxDict[skill.efxName], hit.point + Vector3.up * 0.5f, Quaternion.identity);
+                    float bounsAtk = skill.applyValue / 100;
+                    obj.GetComponent<MagicSphere>().atk = addAtk * GetAttack() * bounsAtk;
+                    attackCritical = false;
+
+                }
+            }
+            else
+            {
+                Debug.Log("超过最远施法距离");
+                PlayerStatus.Instance.mp_remain += skill.costMp;
+            }
+        }
+        else
+        {
+            PlayerStatus.Instance.mp_remain += skill.costMp;
+        }
+        state = PlayerState.ControlWalk;
+        CursorManager.instance.SetNormal();
     }
 
 

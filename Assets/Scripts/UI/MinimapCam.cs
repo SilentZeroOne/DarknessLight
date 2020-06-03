@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class MinimapCam : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
     private Vector3 offset;
     public int zoomVal=2;
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag(TagsManager.player).transform;
         offset = transform.position - target.position;
     }
 

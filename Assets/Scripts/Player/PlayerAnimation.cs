@@ -28,5 +28,6 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetBool("isTakeDamage", PlayerStatus.Instance.isTakeDamage);
         animator.SetBool("GroundImpact", playerAttack.groundImpact);
         animator.SetBool("MagicBall", playerAttack.magicBall);
+        animator.SetBool("AttackCritical", playerAttack.attackCritical);
     }
 }

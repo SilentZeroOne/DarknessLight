@@ -21,6 +21,7 @@ public class CameraControl : MonoBehaviour
     {
         vCamera = GetComponent<CinemachineVirtualCamera>();
         cinemachineTransposer = vCamera.GetCinemachineComponent<CinemachineTransposer>();
+        vCamera.Follow = GameObject.FindGameObjectWithTag(TagsManager.player).transform;
         movement = GameObject.FindGameObjectWithTag(TagsManager.player).GetComponent<PlayerMovement>();
     }
 
@@ -49,7 +50,7 @@ public class CameraControl : MonoBehaviour
         {
             isRotating = false;
         }
-        if (isRotating && !movement.isMoving)
+        if (isRotating)
         {
             Vector3 originPos = transform.position;
             Quaternion originRoa = transform.rotation;
@@ -61,9 +62,7 @@ public class CameraControl : MonoBehaviour
                 transform.position = originPos;
                 transform.rotation = originRoa;
             }
-
-
-            cinemachineTransposer.m_FollowOffset = transform.position - vCamera.Follow.position;
+           cinemachineTransposer.m_FollowOffset = transform.position - vCamera.Follow.position;
         }
         
     }

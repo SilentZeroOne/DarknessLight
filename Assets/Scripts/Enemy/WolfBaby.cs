@@ -88,6 +88,7 @@ public class WolfBaby : MonoBehaviour
                 if (attackTimer >= attackRate&&!isDead)
                 {
                     state = WolfState.Attack;
+                    transform.LookAt(target);
                     RandomAttack();                  
                     attackTimer = 0;
                 }

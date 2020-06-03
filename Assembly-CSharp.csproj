@@ -92,6 +92,7 @@
     <Compile Include="Assets\Scripts\Custom\CharacterCreation.cs" />
     <Compile Include="Assets\Scripts\Custom\CursorManager.cs" />
     <Compile Include="Assets\Scripts\Custom\ErrorPanelControl.cs" />
+    <Compile Include="Assets\Scripts\Custom\GameLoad.cs" />
     <Compile Include="Assets\Scripts\Custom\ObjectInfo.cs" />
     <Compile Include="Assets\Scripts\Custom\ObjectsInfo.cs" />
     <Compile Include="Assets\Scripts\Custom\PressAnyKey.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Assets\Scripts\Shop\ShopItem.cs" />
     <Compile Include="Assets\Scripts\Shop\WeaponShop.cs" />
     <Compile Include="Assets\Scripts\Shop\WeaponShopItem.cs" />
+    <Compile Include="Assets\Scripts\Skil\MagicSphere.cs" />
     <Compile Include="Assets\Scripts\Skil\Skill.cs" />
     <Compile Include="Assets\Scripts\Skil\SkillItem.cs" />
     <Compile Include="Assets\Scripts\Skil\SkillPanel.cs" />
