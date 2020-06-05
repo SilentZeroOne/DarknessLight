@@ -769,6 +769,8 @@ MonoBehaviour:
   damageNumPrefab: {fileID: 8267760543709761297, guid: 4eb007814bd5d194eb162d504aa6a0ff,
     type: 3}
   missClip: {fileID: 8300000, guid: e20723268b93d6649bf9a94ed9e7721a, type: 3}
+  levelUp: {fileID: 8300000, guid: 922305dc1d81da04f9bcfb44b85f67fc, type: 3}
+  levelUpPrefab: {fileID: 100002, guid: be98d6a7b8b1e2843b901172ecc9785f, type: 3}
 --- !u!54 &1178465883
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1445,7 +1447,7 @@ GameObject:
   - component: {fileID: 3063710980272858211}
   m_Layer: 11
   m_Name: Bip001 Head
-  m_TagString: Untagged
+  m_TagString: FreelookAtPos
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

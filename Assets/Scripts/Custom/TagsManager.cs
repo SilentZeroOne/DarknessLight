@@ -9,4 +9,5 @@ public class TagsManager : MonoBehaviour
     public const string itemGrid = "ItemGrid";
     public const string shrotcutGrid = "ShortCutGrid";
     public const string enemy = "Enemy";
+    public const string lookAtPos = "FreelookAtPos";
 }

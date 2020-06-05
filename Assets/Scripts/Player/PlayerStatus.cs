@@ -30,6 +30,8 @@ public class PlayerStatus : MonoBehaviour
     public Transform damageNumPos;
     public GameObject damageNumPrefab;
     public AudioClip missClip;
+    public AudioClip levelUp;
+    public GameObject levelUpPrefab;
     private new Renderer renderer;
 
     private static PlayerStatus instance;
@@ -63,6 +65,8 @@ public class PlayerStatus : MonoBehaviour
             mp = level * 50 + 50;
             mp_remain = mp;
             point_remain++;
+            AudioSource.PlayClipAtPoint(levelUp, transform.position);
+            Instantiate(levelUpPrefab, transform.position + Vector3.up, transform.rotation);
         }
         ExpBar.instance.SetValue(this.exp / totalExp);
     }
@@ -91,11 +95,17 @@ public class PlayerStatus : MonoBehaviour
         if (mp_remain > this.mp)
             mp_remain = this.mp;
     }
-    public bool CostMP(int mp)
+    public void CostMP(int mp)
     {
-        if ((mp_remain - mp) >= 0)
-        {
+       
             mp_remain -= mp;
+
+    }
+
+    public bool MpCompare(int mp)
+    {
+        if (mp_remain>= mp)
+        {
             return true;
         }
         return false;
@@ -125,7 +135,11 @@ public class PlayerStatus : MonoBehaviour
             StartCoroutine(TakeDamage());
             obj = Instantiate(damageNumPrefab, transform.position + Vector3.up, Quaternion.identity);
             obj.GetComponent<DamageNumber>().Value = (int)tempDamage;
-            if (hp_remain <= 0) isDead = true;
+            if (hp_remain <= 0)
+            {
+                isDead = true;
+                RebornPanel.instance.Show();
+            }
         }
 
     }
@@ -142,6 +156,12 @@ public class PlayerStatus : MonoBehaviour
         PlayerAnimation.instance.animator.SetFloat("takeDamage", 0);
     }
 
-
+    public void ReBorn()
+    {
+        hp_remain = hp;
+        mp_remain = mp;
+        GetCoins(-100);
+        isDead = false;
+    }
 
 }

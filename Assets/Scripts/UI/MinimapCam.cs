@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MinimapCam : MonoBehaviour
 {
-    private Transform target;
+    public Transform target;
     private Vector3 offset;
     public int zoomVal=2;
     void Start()
@@ -16,7 +16,8 @@ public class MinimapCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = offset + target.position;
+        if(target!=null)
+          transform.position = offset + target.position;
     }
 
     public void ZoomIn()
@@ -37,4 +38,5 @@ public class MinimapCam : MonoBehaviour
         }
 
     }
+
 }

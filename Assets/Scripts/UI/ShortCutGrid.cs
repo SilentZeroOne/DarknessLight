@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class ShortCutGrid : ItemGrid
 {
@@ -13,16 +15,49 @@ public class ShortCutGrid : ItemGrid
     public KeyCode keyCode;
     GameObject newImg;
 
+    Image mask;
+    bool isCoolDown=true;
+
     private bool isFirst=true;
+
+    private void Awake()
+    {
+        mask = transform.Find("Image").GetComponent<Image>();
+
+        mask.gameObject.SetActive(false);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(keyCode))
         {
             if (skillItem != null)
-                skillItem.Skill.UseSkill();
+            {
+                if (isCoolDown)
+                {
+                    skillItem.Skill.UseSkill();
+                    PlayerAttack.instance.onReleaseSuccess += CoolDown;
+                }
+
+            }
             if (item != null)
                 item.ObjectInfo.UseObject();
         }
+    }
+
+     void CoolDown()
+    {
+        isCoolDown = false;
+        StartCoroutine(ShowMask());
+    }
+
+    IEnumerator ShowMask()
+    {
+        mask.gameObject.SetActive(true);
+        mask.DOFillAmount(0, skillItem.Skill.coolDownTime);
+        yield return new WaitForSeconds(skillItem.Skill.coolDownTime);
+        isCoolDown = true;
+        mask.fillAmount = 1;
+        mask.gameObject.SetActive(false);
     }
     public  void DragToThisGrid(SkillItem skillItem)
     {           

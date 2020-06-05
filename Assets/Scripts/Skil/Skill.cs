@@ -23,6 +23,7 @@ public class Skill
     public string animName;
     public float duration;
 
+
     public string GetTypeName(ApplyType applyType)
     {
         switch (applyType)
@@ -40,7 +41,7 @@ public class Skill
     }
     public void UseSkill()
     {
-        bool success = PlayerStatus.Instance.CostMP(costMp);
+        bool success = PlayerStatus.Instance.MpCompare(costMp);
         if (success)
         {
             //释放技能

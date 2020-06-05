@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class GameLoad : MonoBehaviour
 {
+    public static GameLoad instance;
     public GameObject[] prefabs;
-
+    private int index;
+    private GameObject player;
     private void Awake()
     {
-        int index= PlayerPrefs.GetInt("selectedCharacterIndex");
-        if (index == 0)
-        {
-            Instantiate(prefabs[0], transform.position, transform.rotation);
-        }
-        else
-        {
-            Instantiate(prefabs[1], transform.position, transform.rotation);
-        }
+        instance = this;
+        index= PlayerPrefs.GetInt("selectedCharacterIndex");
+        player=Instantiate(prefabs[index], transform.position, transform.rotation);
+    }
+
+    public void Reborn()
+    {
+        player.transform.position = transform.position;
+        PlayerStatus.Instance.ReBorn();
     }
 }

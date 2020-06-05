@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,6 +37,7 @@ public class PlayerAttack : MonoBehaviour
     public Transform normalAttackTarget;
     private bool isFirst;
     public bool isLockingTarget;
+    public Action onReleaseSuccess;
 
     // private bool atkIt;
     public bool showEffect;
@@ -57,7 +59,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerStatus.Instance.isDead) return;
+        if (PlayerStatus.Instance.isDead) {
+            normalAttackTarget = null;
+            return;
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -157,6 +163,8 @@ public class PlayerAttack : MonoBehaviour
         if (skill.animName== "Skill-GroundImpact")
         {
             groundImpact = true;
+            PlayerStatus.Instance.CostMP(skill.costMp);
+            onReleaseSuccess?.Invoke();
             yield return new WaitForSeconds(skill.duration);
             Instantiate(efxDict[skill.efxName], transform.position, Quaternion.identity);
             groundImpact = false;
@@ -195,7 +203,8 @@ public class PlayerAttack : MonoBehaviour
         if (skill.animName == "Attack1")
         {
             attack1 = true;
-
+            PlayerStatus.Instance.CostMP(skill.costMp);
+            onReleaseSuccess?.Invoke();
             yield return new WaitForSeconds(skill.duration);
             switch (skill.applyProperty)
             {
@@ -243,12 +252,13 @@ public class PlayerAttack : MonoBehaviour
             if (skill.animName == "Skill-MagicBall")
             {
                 magicBall = true;
+                onReleaseSuccess?.Invoke();
+                PlayerStatus.Instance.CostMP(skill.costMp);
                 transform.LookAt(hit.collider.transform);
                 yield return new WaitForSeconds(skill.duration);
                 Instantiate(efxDict[skill.efxName], hit.collider.transform.position, Quaternion.identity);
                 float bounsAtk = skill.applyValue / 100;
                 hit.collider.GetComponent<WolfBaby>().TakeDamage(addAtk*GetAttack() * bounsAtk);
-                bounsAtk = 0;
                 magicBall = false;
                 //state = PlayerState.ControlWalk;
             }
@@ -257,7 +267,8 @@ public class PlayerAttack : MonoBehaviour
         {
            
             CursorManager.instance.SetNormal();
-            PlayerStatus.Instance.mp_remain += skill.costMp;
+
+
         }
         state = PlayerState.ControlWalk;
     }
@@ -274,6 +285,8 @@ public class PlayerAttack : MonoBehaviour
                 if (skill.animName == "AttackCritical")
                 {
                     attackCritical = true;
+                    onReleaseSuccess?.Invoke();
+                    PlayerStatus.Instance.CostMP(skill.costMp);
                     transform.LookAt(hit.collider.transform);
                     yield return new WaitForSeconds(skill.duration);
                     GameObject obj = Instantiate(efxDict[skill.efxName], hit.point + Vector3.up * 0.5f, Quaternion.identity);
@@ -286,12 +299,12 @@ public class PlayerAttack : MonoBehaviour
             else
             {
                 Debug.Log("超过最远施法距离");
-                PlayerStatus.Instance.mp_remain += skill.costMp;
+
             }
         }
         else
         {
-            PlayerStatus.Instance.mp_remain += skill.costMp;
+
         }
         state = PlayerState.ControlWalk;
         CursorManager.instance.SetNormal();
@@ -300,7 +313,7 @@ public class PlayerAttack : MonoBehaviour
 
     void RandomAttack()
     {
-        attackValue = Random.Range(0f, 1f);
+        attackValue = UnityEngine.Random.Range(0f, 1f);
         if (attackValue <= 0.8f)
         {
             finalAtk = 1;

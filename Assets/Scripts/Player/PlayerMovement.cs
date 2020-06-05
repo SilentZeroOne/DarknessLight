@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (PlayerStatus.Instance.isDead) controller.enabled = false;
+        if (PlayerStatus.Instance.isDead) return;
         if (attack.state == PlayerState.ControlWalk&&!PlayerStatus.Instance.isDead)
         {
             float distance = Vector3.Distance(dir.targetPos, transform.position);

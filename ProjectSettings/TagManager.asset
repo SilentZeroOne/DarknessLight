@@ -11,6 +11,7 @@ TagManager:
   - ItemGrid
   - ShortCutGrid
   - Enemy
+  - FreelookAtPos
   layers:
   - Default
   - TransparentFX

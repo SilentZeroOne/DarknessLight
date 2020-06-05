@@ -8,6 +8,8 @@ public class WolfSpawn : MonoBehaviour
     private int currentNum = 0;
     public float time = 10;
     private float timer = 0;
+    public float minRange = 0;
+    public float maxRange = 0;
 
     public GameObject prefab;
 
@@ -19,8 +21,8 @@ public class WolfSpawn : MonoBehaviour
             if (timer > time)
             {
                 Vector3 pos = transform.position;
-                pos.x += Random.Range(-5, 5);
-                pos.z += Random.Range(-5, 5);
+                pos.x += Random.Range(minRange,maxRange);
+                pos.z += Random.Range(minRange, maxRange);
                 GameObject obj= Instantiate(prefab, pos, Quaternion.identity);
                 obj.GetComponent<WolfBaby>().spawn = this;
                 timer = 0;
